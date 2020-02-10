@@ -1,7 +1,6 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Logging;
 
 namespace AdventureWorks.Data.Models
 {
@@ -114,9 +113,12 @@ namespace AdventureWorks.Data.Models
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
+                    .UseLoggerFactory(MyLoggerFactory)
                     .UseSqlServer(ConfigurationManager.ConnectionStrings["AdventureWorks"].ConnectionString);
             }
         }
+
+        public static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
