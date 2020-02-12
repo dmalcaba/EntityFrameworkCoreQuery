@@ -1,7 +1,7 @@
 # EntityFrameworkCoreQuery
 EntityFrameworkCoreQuery repository is a collection of common queries
 
-This uses .NET Core 3.1 
+This uses .NETCore 3.1 / EntityFrameworkCore 3.1 - SqlServer provider
 
 ## Setup
 
@@ -10,3 +10,12 @@ Download the Adventureworks2017 database [here](https://github.com/Microsoft/sql
 To install and configure the database, please read [here](https://docs.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver15).
 
 Rename the `app.config.sample` to `app.config`. Update the `app.config` with the connection string.
+
+## Development Environment
+
+Information regarding my development environment:
+
+Microsoft.EntityFrameworkCore.SqlServer 3.1.1
+SQL Server 14.0.2027.2  (SQL Server Developer Edition)
+IDE: Visual Studio Enterprise 2019 Version 16.4.4
+OS: Windows 10 Enterprise x64
