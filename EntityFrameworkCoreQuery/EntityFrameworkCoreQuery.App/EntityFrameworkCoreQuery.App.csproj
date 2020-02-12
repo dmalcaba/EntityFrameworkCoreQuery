@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdventureWorks.Data\AdventureWorks.Data.csproj" />
+    <ProjectReference Include="..\EntityFrameworkCoreQuery.Queries\EntityFrameworkCoreQuery.Queries.csproj" />
   </ItemGroup>
 
 </Project>
