@@ -15,6 +15,7 @@ namespace EntityFrameworkCoreQuery.Queries
                     .Include(x => x.Product)
                     .Select(x => new { x.Name, x.Product.Count })
                     .OrderBy(x => x.Name)
+                    .AsNoTracking()
                     .ToList();
 
                 ObjectDumper.Write(result);
@@ -38,10 +39,13 @@ namespace EntityFrameworkCoreQuery.Queries
         {
             using (var context = new AdventureWorksDbContext())
             {
-                var result = context.Product
-                    .GroupBy(o => o.ProductSubcategory)
-                    .Select(g => new { g.Key.ProductCategory.Name, Count = g.Count() })
-                    .ToList();
+                var result = context.ProductSubcategory
+                    .Select(b =>
+                        new 
+                        { 
+                            ProductCategory = b.ProductCategory,
+                            ProductCount = b.Product.Count()
+                        });
 
                 ObjectDumper.Write(result);
             };
@@ -50,13 +54,13 @@ namespace EntityFrameworkCoreQuery.Queries
             Generates:
 
             info: Microsoft.EntityFrameworkCore.Database.Command[20101]
-                  Executed DbCommand (32ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-                  SELECT [p0].[Name], (
+                  Executed DbCommand (48ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+                  SELECT [p1].[ProductCategoryID], [p1].[ModifiedDate], [p1].[Name], [p1].[rowguid], (
                       SELECT COUNT(*)
                       FROM [Production].[Product] AS [p]
-                      WHERE [p0].[ProductSubcategoryID] = [p].[ProductSubcategoryID]) AS [Count]
+                      WHERE [p0].[ProductSubcategoryID] = [p].[ProductSubcategoryID]) AS [ProductCount]
                   FROM [Production].[ProductSubcategory] AS [p0]
-                  ORDER BY [p0].[Name]             
+                  INNER JOIN [Production].[ProductCategory] AS [p1] ON [p0].[ProductCategoryID] = [p1].[ProductCategoryID]          
              */
         }
     }
