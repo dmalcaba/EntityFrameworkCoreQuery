@@ -63,5 +63,70 @@ namespace EntityFrameworkCoreQuery.Queries
                   INNER JOIN [Production].[ProductCategory] AS [p1] ON [p0].[ProductCategoryID] = [p1].[ProductCategoryID]          
              */
         }
+
+        public void GroupBy()
+        {
+            using (var context = new AdventureWorksDbContext())
+            {
+                var query = from p in context.ProductVendor
+                            group p by p.BusinessEntityId into g
+                            where g.Count() > 3
+                            orderby g.Key
+                            select new
+                            {
+                                g.Key,
+                                Count = g.Count()
+                            };
+
+                var result = query.AsNoTracking().OrderBy(x => x.Count).ToList();
+
+                ObjectDumper.Write(result);
+            }
+
+            /*
+            info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+                  Executed DbCommand (27ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+                  SELECT [p].[BusinessEntityID] AS [Key], COUNT(*) AS [Count]
+                  FROM [Purchasing].[ProductVendor] AS [p]
+                  GROUP BY [p].[BusinessEntityID]
+                  HAVING COUNT(*) > 3
+                  ORDER BY COUNT(*)
+            */
+        }
+
+        public void GroupByMultipleColumns()
+        {
+            using (var context = new AdventureWorksDbContext())
+            {
+                var query = from p in context.ProductVendor
+                            join v in context.Vendor
+                                on p.BusinessEntityId equals v.BusinessEntityId
+                            group p by new { p.BusinessEntityId, v.AccountNumber, v.Name } into g
+                            where g.Count() > 3
+                            orderby g.Key.Name
+                            select new
+                            {
+                                g.Key.BusinessEntityId,
+                                g.Key.AccountNumber,
+                                g.Key.Name,
+                                Count = g.Count()
+                            };
+
+                var result = query.AsNoTracking().OrderBy(x => x.Count).ToList();
+
+                ObjectDumper.Write(result);
+            }
+
+            /*
+            info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+                  Executed DbCommand (29ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+                  SELECT [p].[BusinessEntityID] AS [BusinessEntityId], [v].[AccountNumber], [v].[Name], COUNT(*) AS [Count]
+                  FROM [Purchasing].[ProductVendor] AS [p]
+                  INNER JOIN [Purchasing].[Vendor] AS [v] ON [p].[BusinessEntityID] = [v].[BusinessEntityID]
+                  GROUP BY [p].[BusinessEntityID], [v].[AccountNumber], [v].[Name]
+                  HAVING COUNT(*) > 3
+                  ORDER BY COUNT(*)
+            */
+        }
     }
 }
