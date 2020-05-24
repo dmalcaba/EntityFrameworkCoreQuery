@@ -197,11 +197,11 @@ namespace EntityFrameworkCoreQuery.Queries
             {
                 //Description is NVARCHAR(255)
                 var specialOff = from offer in context.SpecialOffer
-                                 select new Item { Id = offer.SpecialOfferId, Name = offer.Description };
+                                 select new Item { Id = offer.SpecialOfferId, Name = "'" + offer.DiscountPct.ToString() + "." };
 
                 //Name is NVARCHAR(50)
                 var productCat = from prodcat in context.ProductCategory
-                                 select new Item { Id = prodcat.ProductCategoryId, Name = prodcat.Name };
+                                 select new Item { Id = prodcat.ProductCategoryId, Name = "'" + prodcat.Name + "." };
 
                 var query = specialOff.Union(productCat);
 
@@ -219,5 +219,28 @@ namespace EntityFrameworkCoreQuery.Queries
                  */
             }
         }
+
+        public void RelatedData()
+        {
+            //using (var context = new AdventureWorksDbContext())
+            //{
+            //    var stateProv = context.StateProvince.ToList();
+            //    var result = context.Address.ToList();
+            //}
+
+            //using (var context = new AdventureWorksDbContext())
+            //{
+            //    var result = context.Address.ToList();
+            //}
+
+            using (var context = new AdventureWorksDbContext())
+            {
+                var result = context.Address
+                    .Where(a => a.StateProvince.StateProvinceCode == "WA")
+                    .ToList();
+            }
+
+        }
+        
     }
 }
