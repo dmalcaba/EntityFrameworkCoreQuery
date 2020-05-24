@@ -15,7 +15,12 @@ Rename the `app.config.sample` to `app.config`. Update the `app.config` with the
 
 Information regarding my development environment:
 
-Microsoft.EntityFrameworkCore.SqlServer 3.1.1
+SDK 3.1.300
+
+Microsoft.EntityFrameworkCore.SqlServer 3.1.4
+
 SQL Server 14.0.2027.2  (SQL Server Developer Edition)
-IDE: Visual Studio Enterprise 2019 Version 16.4.4
+
+IDE: Visual Studio Enterprise 2019 Version 16.6.0
+
 OS: Windows 10 Enterprise x64
