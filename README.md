@@ -1,5 +1,5 @@
 # EntityFrameworkCoreQuery
-EntityFrameworkCoreQuery repository is a collection of common queries
+This is a collection of queries used in a lot of common scenarios. A good reference when you are starting out with Entity Framework.
 
 This uses .NETCore 3.1 / EntityFrameworkCore 3.1 - SqlServer provider
 
