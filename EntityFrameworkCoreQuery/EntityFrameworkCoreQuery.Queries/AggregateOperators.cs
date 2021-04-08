@@ -9,20 +9,31 @@ namespace EntityFrameworkCoreQuery.Queries
     {
         public void CountSample()
         {
+            // This is an example of getting a list of ProductSubcategory.Names
+            // and how many Products are attached are using it
+
             using (var context = new AdventureWorksDbContext())
             {
                 var result = context.ProductSubcategory
                     .Include(x => x.Product)
-                    .Select(x => new { x.Name, x.Product.Count })
                     .OrderBy(x => x.Name)
+                    .Select(x => new { x.Name, x.Product.Count })
                     .AsNoTracking()
                     .ToList();
 
                 ObjectDumper.Write(result);
             };
 
-            /*
-            Generates:
+            /* 
+            We assume that it would generate a Sql Statement like this: 
+
+            select b.[Name], count(*) from Production.Product a
+             inner join Production.ProductSubcategory b
+	            on a.ProductSubcategoryID = b.ProductSubcategoryID
+            group by b.Name
+            order by b.Name
+
+            But it generates this instead:
 
             info: Microsoft.EntityFrameworkCore.Database.Command[20101]
                   Executed DbCommand (32ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
@@ -32,6 +43,41 @@ namespace EntityFrameworkCoreQuery.Queries
                       WHERE [p0].[ProductSubcategoryID] = [p].[ProductSubcategoryID]) AS [Count]
                   FROM [Production].[ProductSubcategory] AS [p0]
                   ORDER BY [p0].[Name]             
+
+            Check out the next method below for a better SqlStatement
+             */
+        }
+
+        public void CountSampleBetterSqlStatement()
+        {
+            // This code is better than the one above this as it generates
+            // the expected proper Sql Statement for it
+
+            using (var context = new AdventureWorksDbContext())
+            {
+                var result2 = (from a in context.Product
+                               join b in context.ProductSubcategory
+                                 on a.ProductSubcategoryId equals b.ProductSubcategoryId
+                               group b by new { b.Name } into g
+                               select new
+                               {
+                                   g.Key.Name,
+                                   Count = g.Count()
+                               })
+                               .OrderBy(x => x.Name)
+                               .ToList();
+
+                ObjectDumper.Write(result2);
+            };
+
+            /*
+            info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+                    Executed DbCommand (27ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+                    SELECT [p0].[Name], COUNT(*) AS [Count]
+                    FROM [Production].[Product] AS [p]
+                    INNER JOIN [Production].[ProductSubcategory] AS [p0] ON [p].[ProductSubcategoryID] = [p0].[ProductSubcategoryID]
+                    GROUP BY [p0].[Name]
+                    ORDER BY [p0].[Name]
              */
         }
 
