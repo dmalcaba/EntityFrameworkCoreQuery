@@ -1,7 +1,8 @@
 # EntityFrameworkCoreQuery
+
 This is a collection of queries used in a lot of common scenarios. A good reference when you are starting out with Entity Framework.
 
-This uses .NETCore 3.1 / EntityFrameworkCore 3.1 - SqlServer provider
+This uses .NET 5.0 / EntityFrameworkCore 5.0 - SqlServer provider
 
 ## Setup
 
@@ -15,12 +16,12 @@ Rename the `app.config.sample` to `app.config`. Update the `app.config` with the
 
 Information regarding my development environment:
 
-SDK 3.1.407
+SDK 5.0.402
 
-Microsoft.EntityFrameworkCore.SqlServer 3.1.13
+Microsoft.EntityFrameworkCore.SqlServer 5.0.11
 
-SQL Server 15.0.2000.5  (SQL Server Developer Edition)
+Microsoft SQL Server 2019 15.0.2000.5  (SQL Server Developer Edition)
 
-IDE: Visual Studio Enterprise 2019 Version 16.9.3
+IDE: Visual Studio Enterprise 2019 Version 16.11.5
 
 OS: Windows 10 Enterprise x64
