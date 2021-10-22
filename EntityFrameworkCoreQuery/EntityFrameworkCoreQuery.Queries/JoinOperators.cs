@@ -83,8 +83,8 @@ namespace EntityFrameworkCoreQuery.Queries
         {
             using (var context = new AdventureWorksDbContext())
             {
-                var countryC = context.CountryRegion.Where(x => x.Name.StartsWith("C")).AsQueryable();
-                var countryP = context.CountryRegion.Where(x => x.Name.StartsWith("P")).AsQueryable();
+                var countryC = context.CountryRegion.Where(x => x.Name.StartsWith("C"));
+                var countryP = context.CountryRegion.Where(x => x.Name.StartsWith("P"));
 
                 // UNION
                 var result = countryC.Union(countryP).ToList();
@@ -122,10 +122,10 @@ namespace EntityFrameworkCoreQuery.Queries
             using (var context = new AdventureWorksDbContext())
             {
                 //Name is NVARCHAR(50)
-                var shipMethod = context.ShipMethod.Select(x => new Item { Id = x.ShipMethodId, Name = x.Name }).AsQueryable();
+                var shipMethod = context.ShipMethod.Select(x => new Item { Id = x.ShipMethodId, Name = x.Name });
 
                 //Name is NVARCHAR(50)
-                var productCat = context.ProductCategory.Select(x => new Item { Id = x.ProductCategoryId, Name = x.Name }).AsQueryable();
+                var productCat = context.ProductCategory.Select(x => new Item { Id = x.ProductCategoryId, Name = x.Name });
 
                 var query = shipMethod.Concat(productCat);
 
