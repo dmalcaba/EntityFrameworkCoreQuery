@@ -48,7 +48,10 @@ namespace EntityFrameworkCoreQuery.Queries
                     .Where(x => productClass.Contains(x.Class))
                     .Select(x => new { x.ProductId, x.Name, x.Class, x.ProductNumber });
 
-                var result = query.OrderBy(x => x.Name).Take(10).ToList();
+                var result = query
+                    .OrderBy(x => x.Name)
+                    .Take(10)
+                    .ToList();
 
                 ObjectDumper.Write(result);
 
