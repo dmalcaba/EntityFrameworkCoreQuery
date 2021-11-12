@@ -2,7 +2,7 @@
 
 This is a collection of queries used in a lot of common scenarios. A good reference when you are starting out with Entity Framework.
 
-This uses .NET 5.0 / EntityFrameworkCore 5.0 - SqlServer provider
+This uses .NET 6.0 / EntityFrameworkCore 6.0 - SqlServer provider
 
 ## Setup
 
@@ -16,12 +16,12 @@ Rename the `app.config.sample` to `app.config`. Update the `app.config` with the
 
 Information regarding my development environment:
 
-SDK 5.0.402
+SDK 6.0.100
 
-Microsoft.EntityFrameworkCore.SqlServer 5.0.11
+Microsoft.EntityFrameworkCore.SqlServer 6.0.0
 
 Microsoft SQL Server 2019 15.0.2000.5  (SQL Server Developer Edition)
 
-IDE: Visual Studio Enterprise 2019 Version 16.11.5
+IDE: Visual Studio Enterprise 2022 Version 17.0.0
 
 OS: Windows 10 Enterprise x64
