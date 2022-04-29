@@ -16,12 +16,12 @@ Rename the `app.config.sample` to `app.config`. Update the `app.config` with the
 
 Information regarding my development environment:
 
-SDK 6.0.100
+SDK 6.0.202
 
-Microsoft.EntityFrameworkCore.SqlServer 6.0.0
+Microsoft.EntityFrameworkCore.SqlServer 6.0.4
 
-Microsoft SQL Server 2019 15.0.2000.5  (SQL Server Developer Edition)
+Microsoft SQL Server 2019 15.0.2000.5  (SQL Server Developer Edition) or latest
 
-IDE: Visual Studio Enterprise 2022 Version 17.0.0
+IDE: Visual Studio Enterprise 2022 Version 17.1.4
 
 OS: Windows 10 Enterprise x64
