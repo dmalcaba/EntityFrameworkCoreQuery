@@ -1,13 +1,32 @@
 ﻿using EntityFrameworkCoreQuery.Queries;
 using System;
+using System.Threading.Tasks;
 
-namespace EntityFrameworkCoreQuery.App
+namespace EntityFrameworkCoreQuery.App;
+
+class Program
 {
-    class Program
+    static void Main()
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Entity Framework Core Query App");
-        }
+        Console.WriteLine("Entity Framework Core Query App");
+
+        //AggregateOperators.CountSample();
+        //AggregateOperators.CountSampleBetterSqlStatement();
+        //AggregateOperators.CountSampleV2();
+        //AggregateOperators.GroupByHavingCount();
+        //AggregateOperators.GroupByMultipleColumns();
+
+        //JoinOperators.UsingInclude();
+        //JoinOperators.UsingIncludeWithFind();
+        //JoinOperators.UsingIncludeWithFirstOrDefault();
+        //JoinOperators.UsingQueryMethod();
+        //JoinOperators.Union();
+        //JoinOperators.UnionDifferentTablesSameTypes();
+        //JoinOperators.UnionDifferentStoreTypes();
+
+        //Quantifiers.ContainsIn();
+        //Quantifiers.ContainsInExample2();
+        //Quantifiers.ContainsInExample3();
+
     }
 }

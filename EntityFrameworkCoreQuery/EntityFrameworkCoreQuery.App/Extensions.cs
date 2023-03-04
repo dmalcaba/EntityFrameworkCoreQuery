@@ -1,17 +1,12 @@
 ﻿using AdventureWorks.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace EntityFrameworkCoreQuery.App
+namespace EntityFrameworkCoreQuery.App;
+
+public static class Extensions
 {
-    public static class Extensions
+    public static void NoTracking(this AdventureWorksDbContext context)
     {
-        public static void NoTracking(this AdventureWorksDbContext context)
-        {
-            context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-        }
-
+        context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
 }
